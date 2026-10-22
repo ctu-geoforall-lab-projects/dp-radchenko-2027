@@ -1,4 +1,4 @@
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[aspectratio=169,10pt]{beamer}
 
 % ----------------------------------------------------------------------------
 %  Balíčky a kódování
@@ -103,37 +103,34 @@
 % ============================================================================
 \section{Vymezení rozsahu}
 
-\begin{frame}[t]{Proč nezařazujeme add-ons a tutoriály}
+\begin{frame}[t]{Důvody pro nezařazení add-onů a tutoriálů}
   \small
-  \begin{table}
-    \centering
-    \footnotesize
-    \begin{tabular}{@{}p{3.8cm}p{4.5cm}p{5.1cm}@{}}
-      \toprule
-      \textbf{Při zahrnutí} & \textbf{Důsledek pro systém} & \textbf{Řízení v Gate 2} \\
-      \midrule
-      Neudržované add-ons
-        & Nepřenosné a neověřené závislosti, nestabilní API
-        & Pouze nativní \texttt{grass.tools} (Princip II) \\
-      Libovolné tutoriály
-        & Chybějící stabilní ground truth a reprodukovatelný postup
-        & 40 kurátorovaných případů + NC dataset \\
-      Data z internetu
-        & Porušení 100\,\% offline kontraktu (FR-016)
-        & Lokální Ollama + připravené fixtures \\
-      \bottomrule
-    \end{tabular}
-  \end{table}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}
+      \begin{block}{Proč nezařazujeme Add-ony (\texttt{g.extension})}
+        \begin{itemize}
+          \item \textbf{Přehlcení RAG dohledávání}: Stovky neoficiálních modulů degradují přesnost vektorového vyhledávání v korpusu.
+          \item \textbf{Nároky na prostředí}: Vyžadují dynamickou instalaci a kompilaci, což narušuje deterministický offline-first běh.
+          \item \textbf{Nestabilita rozhraní}: Nejednotná kvalita kódu a chybějící garance podpory \texttt{grass.tools}.
+        \end{itemize}
+      \end{block}
+    \end{column}
 
-  \vspace{1mm}
-  \begin{block}{Co zůstává v rozsahu}
-    543 oficiálních nástrojů \quad$\cdot$\quad dvě úrovně složitosti
-    \quad$\cdot$\quad bezhlavý běh \quad$\cdot$\quad ohraničený self-healing
-  \end{block}
+    \begin{column}{0.49\textwidth}
+      \begin{block}{Proč nezařazujeme externí Tutoriály}
+        \begin{itemize}
+          \item \textbf{Zastaralé rozhraní}: Většina tutoriálů používá legacy \texttt{grass.script} nebo CLI místo moderního \texttt{grass.tools}.
+          \item \textbf{Nízká použitelnost}: Vhodných návodů je naprosté minimum; zbytek trpí jazykovou nejednotností (mimo angličtinu).
+          \item \textbf{Chybějící ground truth}: Návody neobsahují standardizované metriky pro automatické vyhodnocení.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
 
-  \begin{alertblock}{Proč je vymezení důležité}
-    Nejde o tvrzení o schopnostech. Vymezení chrání validitu konstruktu,
-    hranice rozhraní a přímou reprodukovatelnost výsledků.
+  \vspace{3mm}
+
+  \begin{alertblock}{Výsledek pro spolehlivý benchmark}
+    Soustředění na 543 oficiálních nativních nástrojů v \texttt{grass.tools} a 40 přesně definovaných úloh nad certifikovaným datasetem North Carolina.
   \end{alertblock}
 \end{frame}
 
@@ -252,15 +249,18 @@
     \draw[arr] (status) -- (classify);
     \draw[arr] (classify) -- (heal);
 
+    % Spodní opravný cyklus (po selhání při běhu v sandboxu)
     \draw[arr, dashed, rounded corners=4pt]
-      (heal.west) -- (-1.35,-2.2) -- (-1.35,0.8) -- (gen.north);
+      (heal.west) -- (0,-2.2) -- (gen.south);
+
+    % Horní opravný cyklus (při neprojití statickou kontrolou / AST)
+    \draw[arr, dashed, rounded corners=4pt]
+      (static.north) -- (2.9,0.8) -- (0,0.8) -- (gen.north);
   \end{tikzpicture}
 
   \vspace{4mm}
   \begin{block}{Jak číst diagram}
-    Plná šipka je tok jednoho pokusu; čárkovaná šipka je opravný cyklus.
-    Každý uzel má na následujících osmi slidech vlastní vysvětlení: roli,
-    mechanismus a důkaz.
+    Plná šipka je tok jednoho pokusu; čárkované šipky jsou opravné cykly (horní při zamítnutí statickou kontrolou, spodní po selhání při běhu v sandboxu).
   \end{block}
 \end{frame}
 
@@ -294,7 +294,7 @@
 
   \begin{alertblock}{Proč je uzel rizikový}
     Generování je stochastické. Statická validita 90\,\% neznamená
-    spustitelnost; první pokus uspěje jen u 25\,\% případů.
+    spustitelnost; první pokus uspěje jen u 27{,}5\,\% případů.
   \end{alertblock}
 \end{frame}
 
@@ -321,7 +321,7 @@
       \begin{block}{Co statická kontrola nezachytí}
         \begin{itemize}
           \item Dynamické chyby až při běhu: chybějící mapa, parametry, region.
-          \item Statická validita 90\,\% vs.\ Pass@1 25\,\%.
+          \item Statická validita 90\,\% vs.\ Pass@1 27{,}5\,\%.
         \end{itemize}
       \end{block}
     \end{column}
@@ -356,8 +356,8 @@
       \begin{block}{Trvalá data}
         \begin{itemize}
           \item Zákaz zápisu \texttt{chmod -w} na \texttt{PERMANENT}.
-          \item SHA-256 hash před a po běhu (SC-002).
-          \item Nulový počet zanechaných scratch složek (SC-004).
+          \item SHA-256 hash před a po běhu.
+          \item Nulový počet zanechaných scratch složek.
         \end{itemize}
       \end{block}
     \end{column}
@@ -433,7 +433,7 @@
   \end{columns}
 
   \begin{alertblock}{Důkaz}
-    SC-010 skenuje uložené artefakty a selže při jakémkoli zakázaném volání.
+    Automatický audit skenuje uložené artefakty a selže při jakémkoli zakázaném volání.
   \end{alertblock}
 \end{frame}
 
@@ -492,7 +492,7 @@
 
   \begin{alertblock}{Důkaz}
     112 testů klasifikátoru pokrývá precedence, lokalizované chyby a
-    idempotenci; všech 83 selhaných pokusů je klasifikováno (SC-005).
+    idempotenci; všech 83 selhaných pokusů je klasifikováno.
   \end{alertblock}
 \end{frame}
 
@@ -510,7 +510,7 @@
       \end{block}
     \end{column}
     \begin{column}{0.49\textwidth}
-      \begin{block}{Ukotvení v inventáři (FR-012a/b)}
+      \begin{block}{Ukotvení v inventáři map}
         \begin{itemize}
           \item \texttt{inventory.py} čte \texttt{PERMANENT/cellhd} a
                 \texttt{vector} přímo.
@@ -524,7 +524,7 @@
 
   \begin{alertblock}{Naměřený dopad a limit}
     \texttt{missing\_input}: 56 $\rightarrow$ 31 ($-$45\,\%); healing gain
-    +12,5\,p.\,b. Opakovaná stejná selhání však dominují (49 z 56); další
+    +5{,}0\,p.\,b. Opakovaná stejná selhání však dominují (49 z 54); další
     zlepšení vyžaduje ukotvení parametrů, ne jen více opakování.
   \end{alertblock}
 \end{frame}
@@ -543,11 +543,11 @@
       \textbf{Měření} & \textbf{Případy} & \textbf{Úspěšnost} \\
       \midrule
       Gate 1 statická validita (baseline) & 36/40 & 90,0\,\% \\
-      Gate 2 Pass@1 (zero-shot) & 10/40 & 25,0\,\% \\
-      Gate 2 Pass@Healed (max. 2 opakování) & 15/40 & 37,5\,\% \\
+      Gate 2 Pass@1 (zero-shot) & 11/40 & 27,5\,\% \\
+      Gate 2 Pass@Healed (max. 2 opakování) & 13/40 & 32,5\,\% \\
       \midrule
-      \textbf{Nárůst díky opravám (healing gain)} & \textbf{+5 případů}
-        & \textbf{+12,5\,p.\,b.} \\
+      \textbf{Nárůst díky opravám (healing gain)} & \textbf{+2 případy}
+        & \textbf{+5,0\,p.\,b.} \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -555,60 +555,61 @@
   \begin{alertblock}{Klíčový poznatek}
     Statická analýza AST a validace schématu jsou slabými ukazateli
     spustitelnosti v GIS: statická validita dosahuje 90,0\,\%, ale pouze
-    25,0\,\% skriptů reálně proběhne na první pokus.
+    27,5\,\% skriptů reálně proběhne na první pokus.
   \end{alertblock}
 
   \begin{exampleblock}{Přínos self-healingu}
-    +12,5 procentního bodu (+50\,\% relativně): 5 dodatečných případů opraveno
+    +5,0 procentního bodu (+18,2\,\% relativně): 2 dodatečné případy opraveno
     v rámci limitu 2 opakování.
   \end{exampleblock}
 
-  {\footnotesize Pass@Healed měří spustitelnost, nikoli geografickou správnost
-  (FR-021, SC-014).}
+  {\footnotesize Pass@Healed měří spustitelnost, nikoli geografickou správnost.}
 \end{frame}
 
-\begin{frame}[t]{Odhalení skrytých chyb}
+\begin{frame}[t]{Odhalení skrytých chyb (Efekt inventáře map)}
   \small
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.46\textwidth}
+    \begin{column}{0.44\textwidth}
       \begin{table}
         \centering
+        \footnotesize
         \begin{tabular}{@{}lr@{}}
           \toprule
-          \textbf{Režim selhání} & \textbf{Pokusy} \\
+          \textbf{Režim selhání (s inventářem)} & \textbf{Pokusy} \\
           \midrule
           \texttt{general\_exception} & 35 \\
           \texttt{missing\_input} & 31 \\
           \texttt{schema\_misuse} & 17 \\
           \midrule
-          \textbf{Celkem} & \textbf{83} \\
+          \textbf{Celkem neúspěšných pokusů} & \textbf{83} \\
           \bottomrule
         \end{tabular}
       \end{table}
-
-      {\scriptsize \texttt{unknown\_method}: 0 výskytů v tomto běhu.}
+      \vspace{-1mm}
+      {\scriptsize *Součet neúspěšných pokusů napříč všemi opakováními (11/40 případů prošlo hned na 1. pokus).}
     \end{column}
 
-    \begin{column}{0.52\textwidth}
-      \begin{block}{Vyřešeno: halucinace vrstev}
-        \texttt{missing\_input} klesl z 56 na 31 ($-$45\,\%) po zavedení
-        inventáře map.
-      \end{block}
-
-      \begin{block}{Odhaleno: hlubší chyby}
-        \texttt{general\_exception} vzrostl z 10 na 35, což odkrylo:
+    \begin{column}{0.54\textwidth}
+      \begin{block}{Srovnání 2 běhů (bez vs. s inventářem v 1. promptu)}
         \begin{itemize}
-          \item \texttt{v.to.rast} bez parametru \texttt{column=}
-          \item \texttt{d.rast} bez monitoru \texttt{d.mon}
-          \item Nesoulad nastavení regionu (\texttt{g.region})
+          \item \textbf{Vyřešeno (halucinace vrstev):} 
+            \texttt{missing\_input} klesl z 56 na 31 ($-$45\,\%) díky injektování inventáře map hned do 1. promptu.
+          \item \textbf{Odhaleno (hlubší chyby):} 
+            \texttt{general\_exception} vzrostl z 10 na 35. Skripty došly dále a odhalily chyby v parametrech:
+            \begin{itemize}
+              \item \texttt{v.to.rast} bez parametru \texttt{column=}
+              \item \texttt{d.rast} bez monitoru \texttt{d.mon}
+              \item Chybějící nastavení regionu (\texttt{g.region})
+            \end{itemize}
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
 
-  \begin{alertblock}{Interpretace výsledků}
-    Úspěšnost nevzrostla skokově, protože oprava názvu vrstvy odkryla další
-    chybový stupeň. Jde o diagnostický pokrok, který předchází celkovému úspěchu.
+  \vspace{2mm}
+
+  \begin{alertblock}{Interpretace výsledků (Error Unmasking)}
+    Zavedení inventáře map do 1. promptu vyřešilo halucinace vrstev, což odmaskovalo hlubší vrstvu parametrů nástrojů. Jde o diagnostický pokrok, který předchází celkovému nárůstu úspěšnosti.
   \end{alertblock}
 \end{frame}
 
@@ -637,7 +638,7 @@
   \end{table}
 
   \begin{alertblock}{Vyhodnocení}
-    Dominují opakovaná selhání ve stejném režimu (49 z 56).
+    Dominují opakovaná selhání ve stejném režimu (49 z 54).
   \end{alertblock}
 
   \begin{block}{Důsledek pro další vývoj}
@@ -660,7 +661,7 @@
           Hardware & Colab Tesla T4 (15\,GB) \\
           Celkový čas & 16,8 min \\
           Tokeny na úspěch & $\sim$7{,}356 \\
-          Sada testů & 250 testů \\
+          Sada testů & 255 testů \\
           Verze GRASS GIS & 8.5.0 \\
           \bottomrule
         \end{tabular}
@@ -684,12 +685,11 @@
   \end{columns}
 
   \begin{exampleblock}{Integrita výkaznictví}
-    Generování zpráv ověřeno jako bajtově identické při opakovaném zpracování
-    (SC-013).
+    Generování zpráv ověřeno jako bajtově identické při opakovaném zpracování.
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}[t]{Co obsahuje sada 250 testů}
+\begin{frame}[t]{Co obsahuje sada 255 testů}
   \footnotesize
   \begin{table}
     \centering
@@ -698,9 +698,9 @@
       \textbf{Oblast} & \textbf{Co ověřuje} & \textbf{Počet} \\
       \midrule
       Klasifikace a chyby
-        & 4 režimy, precedence, lokalizace, idempotence & 116 \\
+        & 4 režimy, precedence, lokalizace, idempotence & 112 \\
       Self-healing a ukotvení
-        & 4 prvky opravy, Zero-Chat, inventář, cílený dotaz & 45 \\
+        & 4 prvky opravy, Zero-Chat, inventář, cílený dotaz & 49 \\
       Vykonávání a izolace
         & segfault, timeout, PERMANENT hash, scratch, offline & 21 \\
       Kontrakty a perzistence
@@ -708,20 +708,23 @@
       Reportování
         & Pass@1/Healed, počty režimů, přechody, výhrada ke korektnosti & 15 \\
       \midrule
-      \textbf{Celkem v aktuální kolekci} & & \textbf{255} \\
+      \textbf{Celkem v repozitáři} & & \textbf{255} \\
       \bottomrule
     \end{tabular}
   \end{table}
 
-  \begin{block}{Jak testy vznikají}
-    Jednotkové, integrační a kontraktní testy přes \texttt{pytest}; běh na Colab
-    s GRASS GIS 8.5.0 pod neprivilegovaným uživatelem \texttt{grader}.
+  \vspace{1mm}
+
+  \begin{block}{K čemu testy slouží}
+    Garantují správnost architektury, spolehlivou detekci pádů (C-signály, timeouty), hermetickou izolaci sandboxu a reprodukovatelnost výsledků bez nutnosti manuálního ověřování.
   \end{block}
 
-  \begin{alertblock}{Poznámka k počtu}
-    Reportovaný běh Gate 2: 250 testů. Aktuální kolekce v repozitáři: 255 testů
-    (5 parametrizovaných případů navíc); před publikací sjednotit.
-  \end{alertblock}
+  \begin{exampleblock}{Kdy a jak se spouští}
+    \begin{itemize}
+      \item \textbf{Při vývoji (lokálně):} Spouští se přes \texttt{pytest} před každou změnou architektury.
+      \item \textbf{Před během benchmarku (Colab):} Skript \texttt{run\_remote.sh} je automaticky spustí v prostředí GRASS GIS 8.5.0 pod neoprávněným účtem \texttt{grader} pro ověření integrity prostředí ještě před startem hodnocení.
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 % ============================================================================
@@ -732,7 +735,7 @@
 \begin{frame}[t]{Diskuze: co Gate 2 potvrzuje}
   \small
   \begin{block}{1. Rozdíl oproti statické analýze je potvrzen}
-    Statická validita 90,0\,\% vs.\ spustitelnost na 1. pokus 25,0\,\%.
+    Statická validita 90,0\,\% vs.\ spustitelnost na 1. pokus 27,5\,\%.
     Syntaxe a schéma nezaručují spuštění v prostředí.
   \end{block}
 
@@ -740,7 +743,7 @@
 
   \begin{block}{2. Ukotvení a self-healing mají měřitelný přínos}
     Ukotvení v inventáři snížilo \texttt{missing\_input} z 56 na 31; ohraničený
-    self-healing přidal +12,5\,p.\,b. (+50\,\% relativně).
+    self-healing přidal +5,0\,p.\,b. (+18,2\,\% relativně).
   \end{block}
 
   \vspace{2mm}
@@ -801,28 +804,14 @@
       \texttt{specs/}
         & Specifikace, plán, výzkum, datový model, kontrakty \\
       \texttt{tests/} + \texttt{run\_remote.sh}
-        & 250 testů v reportovaném běhu a příprava prostředí v Colab \\
+        & 255 testů v repozitáři a příprava prostředí v Colab \\
       \bottomrule
     \end{tabular}
   \end{table}
 
-  \begin{block}{Jak prezentaci ověřit}
-    Začněte výkazem exekuce, potom auditem úniku a nakonec kontrakty izolace.
-    Všechna čísla mají původ v uloženém artefaktu nebo v zadání konzultace.
-  \end{block}
 \end{frame}
 
 \begin{frame}[t]{Otázky a diskuze}
-  \begin{block}{K diskuzi}
-    \begin{itemize}
-      \item Je navržená izolace dostatečná pro obhajobu, nebo je třeba ji
-            rozšířit?
-      \item Má Gate 3 prioritizovat parametrické RAG ukotvení, nebo škálování
-            modelu?
-      \item Jak prezentovat rozdíl mezi spustitelností a geografickou
-            správností?
-    \end{itemize}
-  \end{block}
 
   \vspace{6mm}
   \begin{center}
