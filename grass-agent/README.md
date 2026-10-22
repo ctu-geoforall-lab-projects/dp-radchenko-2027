@@ -421,8 +421,7 @@ grass-agent/
 │   ├── run_remote.sh                 Colab provisioning
 │   ├── output/                       Gate 1 artifacts (gitignored)
 │   └── output_execution/             Gate 2 per-case artifacts (gitignored)
-├── scripts/                          Knowledge-base build, leakage audit, figures, slides
-├── figures/                          Generated briefing figures for the slides
+├── scripts/                          Knowledge-base build and leakage audit
 ├── presentations/                    Slide decks: Gate 1 (ODP), Gate 2 (PDF, LaTeX)
 ├── tests/                            Unit + integration tests (pytest)
 ├── specs/001-pure-script-generation/ Gate 1 specification and research

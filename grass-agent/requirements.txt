@@ -1,6 +1,7 @@
-ollama
-sqlite-vec
-beautifulsoup4
-requests
-pydantic
-pytest
+ollama==0.6.2
+sqlite-vec==0.1.9
+beautifulsoup4==4.15.0
+requests==2.34.2
+pydantic==2.13.4  # transitive via ollama; pinned for reproducibility
+
+pytest==9.1.1
