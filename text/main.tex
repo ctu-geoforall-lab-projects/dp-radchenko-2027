@@ -1,0 +1,51 @@
+% ------------------------------------------------------------------------------------------------------
+\input{tex/sett/preamble}
+\input{tex/sett/thesis_info}
+% ------------------------------------------------------------------------------------------------------
+\begin{document}
+% ------------------------------------------------------------------------------------------------------
+\input{tex/sett/title_page}
+\frontmatter  
+% TODO: add the official assignment PDF as img/zadani_dp.pdf and uncomment.
+% \includepdf[
+%   pages=-,
+%   pagecommand={\thispagestyle{empty}}
+% ]{img/zadani_dp.pdf}
+% TODO: add the signed declaration PDF as img/declaration.pdf and uncomment.
+% \includepdf[
+%   pages=-,
+%   pagecommand={\thispagestyle{empty}}
+% ]{img/declaration.pdf}
+% \frontmatter  
+% \input{tex/sett/declaration_of_authorship}
+% \input{tex/sett/quotation}
+\input{tex/sett/acknowledgements}
+\input{tex/sett/abstract}
+\input{tex/sett/lists}
+%\input{tex/sett/dedication} 
+% ------------------------------------------------------------------------------------------------------
+\mainmatter 										% Begin numeric (1,2,3...) page numbering
+\pagestyle{thesis} 		
+% Return the page headers back to the "thesis" style
+\include{tex/chap/chap_introduction}
+% \include{tex/chap/chap_related_work}
+\include{tex/chap/chap_theoretical_background}
+% \include{tex/chap/chap_pract}
+% Chapters 3-6 are not written yet; the existing template content belongs to
+% a different thesis and must not be included.
+% \include{tex/chap/chap_methodology}
+% \include{tex/chap/chap_experiments}
+% \include{tex/chap/chap_discussion}
+% \include{tex/chap/chap_conclusion}
+% ------------------------------------------------------------------------------------------------------
+\input{tex/sett/bibliography}
+% ------------------------------------------------------------------------------------------------------
+
+% \appendix 											% Cue to tell LaTeX that the following "chapters" are Appendices
+% \renewcommand{\thechapter}{A\arabic{chapter}}		% Appendices A1, A2, ...
+% \addtocontents{toc}{\bigskip\noindent\textbf{Appendix}\par}
+% \include{tex/appx/additional_results}
+% ------------------------------------------------------------------------------------------------------
+\end{document}  
+% ------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,39 @@
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+\phantomsection
+\addchaptertocentry{\abstractname}
+\thispagestyle{plain}
+\null\vfil
+\begin{center}
+{\huge\bfseries{Abstract} \par}
+\bigskip
+\end{center}
+Large language models can turn a natural-language description of a spatial analysis into executable code, but general-purpose models are unreliable on specialised APIs. The interfaces of GRASS GIS are a particularly demanding target: pretraining is dominated by the legacy command-line interface, so models drift towards the old syntax, invent non-existent signatures, and confuse the available calling conventions. This thesis develops and evaluates \textsc{GrassAgent}, an offline-first agent that translates unconstrained natural-language GIS requests into executable code that automates GRASS GIS. Generation is grounded in the official GRASS 8.6 manual: the system builds a local knowledge base of module signatures and parameter schemas, retrieves relevant documentation, and verifies every generated script deterministically by static analysis of its abstract syntax tree. In a second stage, verified scripts are executed in a headless GRASS session and repaired from runtime error feedback within a bounded number of attempts. The approach is evaluated on a two-tier benchmark suite of natural-language GIS tasks with a locally hosted code model. The thesis examines how grounding, context optimisation, and runtime feedback affect the proportion of scripts that pass static verification and execute successfully.
+
+\begin{center}
+{\large\bfseries{Key words} \par}
+\bigskip
+\end{center}
+\noindent large language models, GIS, GRASS GIS, code generation, retrieval-augmented generation, static verification, self-healing execution, offline inference
+
+\vfil\vfil\vfil\null
+
+\clearpage
+\thispagestyle{plain}
+\null\vfil
+
+\begin{center}
+{\huge\bfseries{Abstrakt} \par}
+\bigskip
+\end{center}
+Velké jazykové modely dokážou převést popis prostorové analýzy v~přirozeném jazyce na spustitelný kód, u~specializovaných API však obecné modely selhávají. Rozhraní systému GRASS GIS jsou obzvláště náročný cíl: předtrénování je ovládáno původním příkazovým rozhraním, a~modely se proto uchylují ke staré syntaxi, vymýšlejí neexistující signatury a~zaměňují dostupné konvence volání. Tato práce vyvíjí a~vyhodnocuje systém \textsc{GrassAgent}, offline agent, který překládá neomezené požadavky GIS v~přirozeném jazyce na spustitelný kód automatizující GRASS GIS. Generování je ukotveno v~oficiálním manuálu GRASS 8.6: systém buduje lokální znalostní bázi signatur a~schémat parametrů modulů, vyhledává relevantní dokumentaci a~každý vygenerovaný skript deterministicky ověřuje statickou analýzou abstraktního syntaktického stromu. Ve druhé fázi jsou ověřené skripty spuštěny v~bezobslužné relaci GRASS a~opravovány na základě zpětné vazby z~běhových chyb v~omezeném počtu pokusů. Přístup je vyhodnocen na dvouúrovňové sadě úloh GIS v~přirozeném jazyce s~lokálně hostovaným kódovým modelem. Práce zkoumá vliv ukotvení, optimalizace kontextu a~běhové zpětné vazby na podíl skriptů, které projdou statickým ověřením a~úspěšně se spustí.
+
+\begin{center}
+{\large\bfseries{Klíčová slova} \par}
+\bigskip
+\end{center}
+\noindent velké jazykové modely, GIS, GRASS GIS, generování kódu, retrieval-augmented generation, statická verifikace, samo-opravné provádění, offline inference
+
+\vfil\vfil\vfil\null
+\clearpage
