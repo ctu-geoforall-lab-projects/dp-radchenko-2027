@@ -6,14 +6,16 @@
 % ------------------------------------------------------------------------------------------------------
 \input{tex/sett/title_page}
 \frontmatter  
-\includepdf[
-  pages=-,
-  pagecommand={\thispagestyle{empty}}
-]{img/zadani_dp.pdf}
-\includepdf[
-  pages=-,
-  pagecommand={\thispagestyle{empty}}
-]{img/declaration.pdf}
+% TODO: add the official assignment PDF as img/zadani_dp.pdf and uncomment.
+% \includepdf[
+%   pages=-,
+%   pagecommand={\thispagestyle{empty}}
+% ]{img/zadani_dp.pdf}
+% TODO: add the signed declaration PDF as img/declaration.pdf and uncomment.
+% \includepdf[
+%   pages=-,
+%   pagecommand={\thispagestyle{empty}}
+% ]{img/declaration.pdf}
 % \frontmatter  
 % \input{tex/sett/declaration_of_authorship}
 % \input{tex/sett/quotation}
@@ -29,21 +31,20 @@
 % \include{tex/chap/chap_related_work}
 \include{tex/chap/chap_theoretical_background}
 % \include{tex/chap/chap_pract}
-\include{tex/chap/chap_methodology}
-\include{tex/chap/chap_experiments}
-\include{tex/chap/chap_discussion}
-\include{tex/chap/chap_conclusion}
+% Chapters 3-6 are not written yet; the existing template content belongs to
+% a different thesis and must not be included.
+% \include{tex/chap/chap_methodology}
+% \include{tex/chap/chap_experiments}
+% \include{tex/chap/chap_discussion}
+% \include{tex/chap/chap_conclusion}
 % ------------------------------------------------------------------------------------------------------
 \input{tex/sett/bibliography}
 % ------------------------------------------------------------------------------------------------------
 
 % \appendix 											% Cue to tell LaTeX that the following "chapters" are Appendices
 % \renewcommand{\thechapter}{A\arabic{chapter}}		% Appendices A1, A2, ...
-% \include{text/tex/appx/additional_results}
-\addtocontents{toc}{\bigskip\noindent\textbf{Appendix}\par}
-\appendix
-
-\include{text/tex/appx/additional_results}
+% \addtocontents{toc}{\bigskip\noindent\textbf{Appendix}\par}
+% \include{tex/appx/additional_results}
 % ------------------------------------------------------------------------------------------------------
 \end{document}  
 % ------------------------------------------------------------------------------------------------------
