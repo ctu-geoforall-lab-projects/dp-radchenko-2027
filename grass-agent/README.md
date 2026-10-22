@@ -422,8 +422,8 @@ grass-agent/
 │   ├── output/                       Gate 1 artifacts (gitignored)
 │   └── output_execution/             Gate 2 per-case artifacts (gitignored)
 ├── scripts/                          Knowledge-base build, leakage audit, figures, slides
-├── figures/                          Diagrams used by the thesis and slide deck
-├── presentations/                    Gate 2 slide deck (ODP, PDF, LaTeX source)
+├── figures/                          Generated briefing figures for the slides
+├── presentations/                    Slide decks: Gate 1 (ODP), Gate 2 (PDF, LaTeX)
 ├── tests/                            Unit + integration tests (pytest)
 ├── specs/001-pure-script-generation/ Gate 1 specification and research
 └── specs/002-runtime-self-healing-harness/  Gate 2 specification and tasks
