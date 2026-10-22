@@ -1,52 +1,6 @@
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
-
-% \begin{abstract}
-% \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-
-% Cloud detection is an essential preprocessing step in optical satellite 
-% imagery analysis. Deep learning models trained on one sensor often fail to 
-% generalize to another due to differences in spectral configuration and 
-% radiometric properties, making cross-sensor transfer learning a practically 
-% important but underexplored problem. This thesis systematically investigates 
-% transfer learning strategies for cloud semantic segmentation, focusing on 
-% the transfer from Sentinel-2 to VEN$\mu$S imagery. A U-Net model was 
-% trained on a subset of the CloudSEN12+ dataset and adapted to a VEN$\mu$S 
-% cloud masking dataset using four normalization strategies and four transfer 
-% learning configurations, ranging from zero-shot transductive transfer to 
-% full network fine-tuning. In the transductive setting, dynamic Z-score 
-% normalization proved decisive, enabling strong cross-sensor generalization 
-% without any modification to the model weights. In the inductive setting, 
-% frozen encoder fine-tuning achieved the best overall result, surpassing a 
-% model trained from scratch on VEN$\mu$S data. The results confirm that when 
-% the source and target domains are sufficiently similar, transfer learning 
-% can match or exceed fully supervised target domain solutions, significantly 
-% reducing the effort required to deploy cloud detection for new satellite 
-% missions.
-% \begin{center}
-% 	{\large\bfseries{Key words} \par}
-% 	\bigskip
-% 	\end{center}
-% transfer learning, remote sensing, deep learning, convolutional neural network\\
-% \vspace{20pt}
-% \begin{center}
-% 	{\huge\bfseries{Abstrakt} \par}
-% 	\bigskip
-%     \bfseries{\ttitleeng}
-% \end{center}
-% ...\\
-% \begin{center}
-% 	{\large\bfseries{Klíčová slova} \par}
-% 	\bigskip
-% 	\end{center}
-% ...\\
-
-% \end{abstract}
-
-%----------------------------------------------------------------------------------------
-%	ABSTRACT PAGE
-%----------------------------------------------------------------------------------------
 \phantomsection
 \addchaptertocentry{\abstractname}
 \thispagestyle{plain}
@@ -55,13 +9,13 @@
 {\huge\bfseries{Abstract} \par}
 \bigskip
 \end{center}
-Cloud detection is a crucial step in the processing of optical satellite imagery. Deep learning models trained for cloud detection on data from one sensor often fail when applied to a different sensor due to differences in spectral and radiometric properties. Transfer learning techniques can help mitigate this problem. This work investigates transfer learning techniques for cloud semantic segmentation, focusing on the transfer from the Sentinel-2 imagery to the VEN$\mu$S imagery. A model based on the U-Net architecture was trained on a subset of the CloudSEN12+ dataset and subsequently adapted to a cloud detection dataset for the VEN$\mu$S satellite. Four transfer learning configurations were compared, ranging from transductive transfer to full network fine-tuning, along with four normalization strategies. In the transductive experiment, dynamic Z-score normalization achieved the best results, enabling cross-sensor generalization without any modification of the model weights. In the fine-tuning experiments, the best results were achieved using partial adaptation with frozen encoder weights, slightly surpassing the performance of a model trained from scratch on VEN$\mu$S data. The results demonstrate that, when the source and target domains are sufficiently similar, a model adapted through transfer learning can match or even surpass the performance of a model trained exclusively on data from the target domain. These findings suggest that transfer learning can support the deployment of cloud detection models to new sensors while decreasing the need for large, sensor-specific annotated datasets.
+Large language models can turn a natural-language description of a spatial analysis into executable code, but general-purpose models are unreliable on specialised APIs. The modern object-oriented \texttt{grass.tools} interface of GRASS GIS is a particularly demanding target: pretraining is dominated by the legacy command-line interface, so models drift towards the old syntax, invent non-existent signatures, and confuse the two calling conventions. This thesis develops and evaluates \textsc{GrassAgent}, an offline-first agent that translates unconstrained natural-language GIS requests into Python scripts written against \texttt{grass.tools}. Generation is grounded in the official GRASS 8.6 manual: the system builds a local knowledge base of module signatures and parameter schemas, retrieves relevant documentation, and verifies every generated script deterministically by static analysis of its abstract syntax tree. In a second stage, verified scripts are executed in a headless GRASS session and repaired from runtime error feedback within a bounded number of attempts. The approach is evaluated on a two-tier benchmark suite of natural-language GIS tasks with a locally hosted code model. The thesis examines how grounding, context optimisation, and runtime feedback affect the proportion of scripts that pass static verification and execute successfully.
 
 \begin{center}
 {\large\bfseries{Key words} \par}
 \bigskip
 \end{center}
-\noindent transfer learning, cloud detection, remote sensing, deep learning, convolutional neural network, semantic segmentation, Sentinel-2, VEN$\mu$S
+\noindent large language models, GIS, GRASS GIS, code generation, retrieval-augmented generation, static verification, self-healing execution, offline inference
 
 \vfil\vfil\vfil\null
 
@@ -73,13 +27,13 @@ Cloud detection is a crucial step in the processing of optical satellite imagery
 {\huge\bfseries{Abstrakt} \par}
 \bigskip
 \end{center}
-Detekce oblaků je stěžejním krokem při zpracování optických satelitních snímků. Modely hlubokého učení trénované k detekci oblaků na datech z~jednoho senzoru však často selhávají při aplikaci na jiný senzor kvůli rozdílům ve spektrálních a~radiometrických vlastnostech. Techniky přenosového učení mohou pomoci s~řešením tohoto problému. Tato práce zkoumá techniky přenosového učení pro sémantickou segmentaci oblaků se zaměřením na přenos ze snímků Sentinel-2 na snímky VEN$\mu$S. Model založený na architektuře U-Net byl trénován na podmnožině datasetu CloudSEN12+ a následně adaptován na dataset pro detekci oblaků ze satelitu VEN$\mu$S. Byly porovnány čtyři konfigurace přenosového učení, od transduktivního přenosu až po fine-tuning celé sítě, a~zároveň čtyři normalizační strategie. V transduktivním experimentu dosáhla nejlepších výsledků dynamická Z-score normalizace, která umožnila generalizaci mezi senzory bez jakýchkoli úprav vah modelu. Z~fine-tuning experimentů bylo dosaženo nejlepších výsledků za použití částečné adaptace a~zmrazení vah kodéru, přičemž byl dokonce mírně překonán výkon modelu trénovaného výhradně na datech VEN$\mu$S. Výsledky potvrzují, že pokud jsou zdrojová a cílová doména dostatečně podobné, adaptovaný model může za~pomoci technik přenosového učení dosáhnout srovnatelných nebo dokonce lepších výsledků než model trénovaný výhradně na datech cílové domény. Tyto výsledky naznačují, že přenosové učení může usnadnit nasazení modelů pro detekci oblaků na nových senzorech a omezit závislost na rozsáhlých anotovaných datasetech určených pouze pro konkrétní satelit.
+Velké jazykové modely dokážou převést popis prostorové analýzy v~přirozeném jazyce na spustitelný kód, u~specializovaných API však obecné modely selhávají. Moderní objektové rozhraní \texttt{grass.tools} systému GRASS GIS je obzvláště náročný cíl: předtrénování je ovládáno původním příkazovým rozhraním, a~modely se proto uchylují ke staré syntaxi, vymýšlejí neexistující signatury a~zaměňují obě konvence volání. Tato práce vyvíjí a~vyhodnocuje systém \textsc{GrassAgent}, offline agent, který překládá neomezené požadavky GIS v~přirozeném jazyce do skriptů v~Pythonu psaných proti rozhraní \texttt{grass.tools}. Generování je ukotveno v~oficiálním manuálu GRASS 8.6: systém buduje lokální znalostní bázi signatur a~schémat parametrů modulů, vyhledává relevantní dokumentaci a~každý vygenerovaný skript deterministicky ověřuje statickou analýzou abstraktního syntaktického stromu. Ve druhé fázi jsou ověřené skripty spuštěny v~bezobslužné relaci GRASS a~opravovány na základě zpětné vazby z~běhových chyb v~omezeném počtu pokusů. Přístup je vyhodnocen na dvouúrovňové sadě úloh GIS v~přirozeném jazyce s~lokálně hostovaným kódovým modelem. Práce zkoumá vliv ukotvení, optimalizace kontextu a~běhové zpětné vazby na podíl skriptů, které projdou statickým ověřením a~úspěšně se spustí.
 
 \begin{center}
 {\large\bfseries{Klíčová slova} \par}
 \bigskip
 \end{center}
-\noindent přenosové učení, detekce oblaků, dálkový průzkum Země, hluboké učení, konvoluční neuronová síť, sémantická segmentace, Sentinel-2, VEN$\mu$S
+\noindent velké jazykové modely, GIS, GRASS GIS, generování kódu, retrieval-augmented generation, statická verifikace, samo-opravné provádění, offline inference
 
 \vfil\vfil\vfil\null
 \clearpage
