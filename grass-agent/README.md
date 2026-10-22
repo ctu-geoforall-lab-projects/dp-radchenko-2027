@@ -421,12 +421,16 @@ grass-agent/
 │   ├── run_remote.sh                 Colab provisioning
 │   ├── output/                       Gate 1 artifacts (gitignored)
 │   └── output_execution/             Gate 2 per-case artifacts (gitignored)
-├── scripts/                          Knowledge-base build, leakage audit, figures
+├── scripts/                          Knowledge-base build, leakage audit, figures, slides
+├── figures/                          Diagrams used by the thesis and slide deck
+├── presentations/                    Gate 2 slide deck (ODP, PDF, LaTeX source)
 ├── tests/                            Unit + integration tests (pytest)
 ├── specs/001-pure-script-generation/ Gate 1 specification and research
-├── specs/002-runtime-self-healing-harness/  Gate 2 specification and tasks
-└── thesis/                           Thesis sources
+└── specs/002-runtime-self-healing-harness/  Gate 2 specification and tasks
 ```
+
+The thesis sources live in the repository root under `text/`; they are not
+duplicated in this snapshot.
 
 ---
 
