@@ -1,0 +1,56 @@
+\chapter{Introduction}
+\label{ch:introduction}
+
+\section{Motivation}
+
+Geographic information systems (GIS) have become the standard instrument for
+working with spatial data at every scale of public administration, science and
+industry. The reason for their success is not only analytical power but
+\emph{reproducibility}: an analysis performed in a desktop application can be
+recorded as a script and re-executed on new data, on another machine, by
+another analyst. For a long time this reproducibility was obtained from the
+graphical user interfaces of systems such as GRASS \cite{neteler2012grass} and
+QGIS \cite{qgissoftware}, whose Python bindings \cite{pyqgis,grass_tools} let
+an analyst convert a click sequence into a re-runnable script after the fact.
+
+That order of work, however, is inverted with respect to how analytical needs
+are actually formulated. A practitioner usually knows the analysis in
+\emph{intent} long before knowing its implementation: it is clear that the
+streams must be buffered by 200 metres, or that average temperature must be
+computed per administrative unit, while the exact module name, the spelling of
+the parameters and the calling convention remain an implementation detail to be
+looked up. The gap between intent and implementation is small in knowledge but
+large in friction, and it is paid for on every single analysis.
+
+Large language models (LLMs) appear to dissolve that gap: a model can be asked
+for an analysis in ordinary language and can answer with code
+\cite{vaswani2017attention,chen2021codex}. Since 2023 this capability has been
+repackaged into \emph{agents}: systems in which a language model selects tools,
+executes them, observes the outcome and iterates \cite{yao2023react}. The
+geospatial community has adopted this direction vigorously, both through
+research prototypes \cite{zhang2023geogpt,zhang2024geollmtooluse,singh2024geollmengine}
+and through a rapidly growing ecosystem of QGIS plugins that put a chat window
+in front of a running desktop session.
+
+The enthusiasm, however, meets a hard constraint. The most capable code models
+available in practice are large, and the most convenient way of running them is
+as a hosted service. For an analyst handling sensitive spatial data --- land
+cadastre, utility networks, health data, defence-related imagery --- neither the
+upload of the prompt, nor the projection of the resulting code into a vendor's
+cloud, nor the loss of control over which model version produced a given
+analysis are acceptable. A large part of the current literature on LLM-assisted
+GIS silently assumes a cloud endpoint \cite{mansourian2024chatgeoai,singh2024geollmengine}.
+An offline alternative must therefore work with what a workstation can run: a
+model of a few billion parameters, a local inference server, and the
+documentation that ships with the software being automated. Offline-first
+operation and hybrid routing are not mutually exclusive: keeping sensitive
+requests local while allowing non-sensitive ones to reach a stronger hosted
+model gives the analyst both control and capability.
+
+This thesis addresses that gap. It develops and evaluates \textsc{GrassAgent},
+an offline-first agent that translates unconstrained natural-language GIS
+requests into executable Python scripts written against the modern
+object-oriented \texttt{grass.tools} API of GRASS, verifies those scripts
+deterministically against the official GRASS manual, and --- as a second stage
+--- executes them in a live headless GRASS session and attempts to repair them
+from the resulting error feedback.
