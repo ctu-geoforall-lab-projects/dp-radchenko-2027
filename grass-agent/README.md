@@ -290,6 +290,13 @@ ollama pull nomic-embed-text
 
 For GPU execution, `benchmarks/run_remote.sh` provisions a Colab instance end to end: Ollama and the models, GRASS GIS (`grass-core` from the UbuntuGIS PPA — 8.4+, since the harness needs `--tmp-mapset`), the North Carolina sample dataset with its `PERMANENT` write guard, and the Python dependencies. It then runs the test suite (or, with `bash benchmarks/run_remote.sh eval`, the Gate 1 evaluation). It installs `zstd` first, because the Ollama installer refuses to extract without it and stock Colab images do not ship it.
 
+### Running the tests in Docker
+
+```bash
+#    (path_to_local_copy = absolute path to your grass-agent/ checkout)
+docker run --rm --user "$(id -u):$(id -g)" -v path_to_local_copy:/grass-agent grass-agent-tests:1.0
+```
+
 ### Workflow entry points
 
 Run all three from the repository root. The `python -m` form is canonical for the benchmark runners: it puts the repository on `sys.path`, so the package imports resolve the same way they do under pytest.
